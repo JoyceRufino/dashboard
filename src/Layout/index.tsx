@@ -11,12 +11,12 @@ const Layout = () => {
      
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <div
-        className={`flex flex-col transition-all duration-300 w-full ${
-          isCollapsed ? "ml-20" : "ml-64"
+        className={`flex flex-col ease-in-out duration-400 w-full ${
+          isCollapsed ? "ml-24" : "ml-64"
         }`}
       >
         <Header />
-        <main className="p-6">
+        <main className="p-8">
           <Outlet />
         </main>
       </div>

@@ -13,13 +13,13 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
 
   return (
     <aside
-      className={`fixed m-2 top-0 left-0 h-screen bg-gray-900 text-white p-5 transition-all duration-300 z-50 overflow-hidden  rounded-md  ${
+      className={`fixed  top-0 left-0 h-screen bg-gray-900 text-white p-5 transition-all duration-400 z-50 overflow-hidden    ${
         isCollapsed ? "w-22" : "w-64"
       }`}
     >
       <div className="flex justify-between items-center h-8">
         <div
-          className={`transition-opacity duration-300 ${
+          className={`transition-opacity duration-400 ${
             isCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
           }`}
         >
@@ -34,7 +34,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
             <img
               src={profile}
               alt="Profile"
-              className="h-8 w-8 rounded-full transition-all duration-300 cursor-pointer"
+              className="h-8 w-8 rounded-full transition-all duration-400 cursor-pointer"
             />
           ) : (
             <X size={24} className="cursor-pointer" />
@@ -42,9 +42,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         </button>
       </div>
 
-      <hr className="my-5 border-gray-800" />
+     
 
-      <nav className="flex flex-col gap-2">
+      <nav className="flex flex-col gap-2 mt-5">
         {[
           { to: "/", label: "Home", icon: <Home size={24} /> },
           { to: "/about", label: "About", icon: <Info size={24} /> },
@@ -53,7 +53,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex items-center h-12 p-3 rounded-lg transition-all duration-300 ${
+              `flex items-center h-12 p-3 rounded-lg transition-all duration-400 ${
                 isActive ? "bg-blue-800" : "hover:bg-gray-700"
               }`
             }
@@ -61,7 +61,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
             <div className="min-w-[24px] flex justify-center">{icon}</div>
 
             <span
-              className={`ml-3 overflow-hidden transition-all duration-300 ${
+              className={`ml-3 overflow-hidden transition-all ease-in-out duration-400 ${
                 isCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
               }`}
             >

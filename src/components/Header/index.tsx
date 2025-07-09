@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className="shadow h-18 rounded p-1 m-8">Header</div>
+    <div className="shadow h-16 rounded p-8 ml-5 mr-5 ">Header</div>
   );
 };
 
