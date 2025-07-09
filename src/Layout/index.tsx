@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Sidebar from '../components/Sidebar'
-import Header from '../components/Header'
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
@@ -8,12 +8,16 @@ const Layout = () => {
 
   return (
     <div className="flex">
-     
-      <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+      {/* Sidebar aparece só a partir do md */}
+      <div className="hidden md:block">
+        <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+      </div>
+
+      {/* Conteúdo principal */}
       <div
         className={`flex flex-col ease-in-out duration-400 w-full ${
-          isCollapsed ? "ml-24" : "ml-64"
-        }`}
+          isCollapsed ? "md:ml-24" : "md:ml-64"
+        } ml-0`} // no mobile ml=0 (sem margem)
       >
         <Header />
         <main className="p-8">

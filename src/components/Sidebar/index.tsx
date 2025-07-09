@@ -42,8 +42,6 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         </button>
       </div>
 
-     
-
       <nav className="flex flex-col gap-2 mt-5">
         {[
           { to: "/", label: "Home", icon: <Home size={24} /> },
