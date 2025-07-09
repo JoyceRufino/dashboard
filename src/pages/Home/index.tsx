@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div className="h-screen">
+    <div className="">
       <h1>Bem vinda!</h1>
     </div>
   );

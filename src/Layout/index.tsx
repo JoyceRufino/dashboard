@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
+import FooterMobile from "../components/FooterMobile";
 
 const Layout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -20,10 +21,13 @@ const Layout = () => {
         } ml-0`} // no mobile ml=0 (sem margem)
       >
         <Header />
-        <main className="p-8">
+       <main className="p-8 pb-20 md:pb-8">
           <Outlet />
         </main>
       </div>
+      
+      {/* Footer mobile fixo */}
+      <FooterMobile />
     </div>
   );
 };
