@@ -1,5 +1,5 @@
 import React from 'react'
-import { menuLinks } from '../../configs/menuLinks'
+import { menuLinks, menuLinksFooter } from '../../configs/menuLinks'
 import { NavLink } from 'react-router-dom'
 
 type Props = {}
@@ -9,7 +9,7 @@ const FooterMobile = (props: Props) => {
     <footer className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-inner md:hidden">
       <nav>
         <ul className="flex justify-around p-2 text-gray-700">
-          {menuLinks.map(({ to, label, icon: Icon }) => (
+          {menuLinksFooter.map(({ to, label, icon: Icon }) => (
             <li key={to}>
               <NavLink
                 to={to}

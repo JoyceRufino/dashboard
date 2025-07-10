@@ -1,4 +1,4 @@
-import { Home, Info, X } from "lucide-react";
+import { Coins, Dock, Home, Info, Sparkle, User, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import profile from "../../assets/profile.png";
@@ -46,6 +46,10 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         {[
           { to: "/", label: "Home", icon: <Home size={24} /> },
           { to: "/about", label: "About", icon: <Info size={24} /> },
+          { to: "/products", label: "Products", icon: <Dock /> },
+          { to: "/sales", label: "Sales", icon: <Sparkle /> },
+          { to: "/users", label: "Users", icon: <User /> },
+          { to: "/financial", label: "Financial", icon: <Coins /> },
         ].map(({ to, label, icon }) => (
           <NavLink
             key={to}
@@ -57,7 +61,6 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
             }
           >
             <div className="min-w-[24px] flex justify-center">{icon}</div>
-
             <span
               className={`ml-3 overflow-hidden transition-all ease-in-out duration-400 ${
                 isCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
@@ -68,6 +71,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
           </NavLink>
         ))}
       </nav>
+     
     </aside>
   );
 };

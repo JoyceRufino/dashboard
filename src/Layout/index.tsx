@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 import { Outlet } from "react-router-dom";
-import FooterMobile from "../components/FooterMobile";
+import FooterMobile from "./FooterMobile";
 
 const Layout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
