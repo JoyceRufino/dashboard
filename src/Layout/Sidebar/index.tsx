@@ -71,7 +71,6 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
           </NavLink>
         ))}
       </nav>
-     
     </aside>
   );
 };
