@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import profile from "../../assets/profile.png";
+import icon from "../../assets/icon.png";
 import { sidebarData } from "./data";
 
 type SidebarProps = {
@@ -19,13 +19,17 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
       }`}
     >
       {/* Logo e botão */}
-      <div className="flex justify-between items-center h-8">
+      <div
+        className={`flex items-center h-8 ${
+          isCollapsed ? "justify-center" : "justify-between "
+        }`}
+      >
         <div
           className={`transition-opacity duration-400 ${
             isCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
           }`}
         >
-          <img src={logo} alt="Logo" className="h-5" />
+          <img src={logo} alt="Logo" className="h-8" />
         </div>
 
         <button
@@ -34,7 +38,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         >
           {isCollapsed ? (
             <img
-              src={profile}
+              src={icon}
               alt="Profile"
               className="h-8 w-8 rounded-full transition-all duration-400 cursor-pointer"
             />

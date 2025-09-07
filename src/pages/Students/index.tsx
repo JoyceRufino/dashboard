@@ -105,7 +105,7 @@ const Students = () => {
           console.log("Rascunho salvo:", data);
           setOpen(false);
         })}
-        size={"2xl"}
+        size={"3xl"}
       />
     </div>
   );

@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"; // ShadCN select
+} from "@/components/ui/select";
 
 interface Option {
   label: string;
@@ -15,11 +15,12 @@ interface Option {
 
 interface FormSelectProps {
   name: string;
-  control: Control<any>; // do react-hook-form
+  control: Control<any>;
   options: Option[];
   placeholder?: string;
   label?: string;
-  rules?: any; // validação do react-hook-form
+  rules?: any;
+  onValueChange?: (value: string) => void; // nova prop
 }
 
 export const FormSelect: React.FC<FormSelectProps> = ({
@@ -29,6 +30,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   placeholder,
   label,
   rules,
+  onValueChange,
 }) => {
   return (
     <Controller
@@ -37,9 +39,21 @@ export const FormSelect: React.FC<FormSelectProps> = ({
       rules={rules}
       render={({ field, fieldState }) => (
         <div className="flex flex-col w-full">
-          {label && <label className="mb-1 text-sm font-medium">{label}</label>}
-          <Select {...field}>
-            <SelectTrigger>
+          {label && (
+            <label htmlFor={name} className="mb-1 text-sm font-medium">
+              {label}
+            </label>
+          )}
+
+          <Select
+            {...field}
+            value={field.value ?? ""}
+            onValueChange={(val) => {
+              field.onChange(val);
+              if (onValueChange) onValueChange(val); // chama callback externo
+            }}
+          >
+            <SelectTrigger id={name}>
               <SelectValue placeholder={placeholder || "Selecione..."} />
             </SelectTrigger>
             <SelectContent>
@@ -50,6 +64,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
               ))}
             </SelectContent>
           </Select>
+
           {fieldState.error && (
             <span className="text-red-500 text-sm mt-1">
               {fieldState.error.message}

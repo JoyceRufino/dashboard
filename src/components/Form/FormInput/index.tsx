@@ -5,11 +5,12 @@ import { Label } from "@/components/ui/label";
 
 interface FormInputProps {
   name: string;
-  control: Control<any>; // pode ajustar para seu tipo de formulário
+  control: Control<any>;
   placeholder?: string;
   label?: string;
   maxLength?: number;
-  rules?: any; // regras de validação do react-hook-form
+  rules?: any;
+  format?: (value: string) => string;
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -19,6 +20,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   label,
   maxLength = 255,
   rules,
+  format,
 }) => {
   const [valueLength, setValueLength] = useState(0);
 
@@ -41,8 +43,10 @@ export const FormInput: React.FC<FormInputProps> = ({
             {...field}
             value={field.value || ""}
             onChange={(e) => {
-              field.onChange(e);
-              setValueLength(e.target.value.length);
+              let value = e.target.value;
+              if (format) value = format(value); // aplica formatação
+              field.onChange(value);
+              setValueLength(value.length);
             }}
           />
           <div className="text-right text-sm text-gray-500 mt-1">

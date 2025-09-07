@@ -1,4 +1,18 @@
-import { Coins, Dock, Home, Info, Sparkle, User } from "lucide-react";
+import {
+  ClipboardMinus,
+  Coins,
+  Component,
+  ContactRound,
+  CreditCard,
+  Dock,
+  Home,
+  IdCard,
+  Info,
+  Shapes,
+  Sparkle,
+  User,
+  Users,
+} from "lucide-react";
 
 export interface SidebarItem {
   to: string;
@@ -12,45 +26,41 @@ export const sidebarData: SidebarItem[] = [
     label: "Home",
     icon: Home,
   },
-  {
-    to: "/dashboard",
-    label: "Dashboard",
-    icon: Info,
-  },
+
   {
     to: "/students",
     label: "Alunos",
-    icon: Dock,
+    icon: IdCard,
   },
   {
     to: "/instructors",
     label: "Instrutores",
-    icon: Sparkle,
+    icon: ContactRound,
+  },
+  {
+    to: "/partnerships",
+    label: "Parceiros",
+    icon: Component,
   },
   {
     to: "/classes",
     label: "Aulas",
-    icon: User,
+    icon: Shapes,
   },
   {
     to: "/exams",
     label: "Exames",
-    icon: User,
+    icon: ClipboardMinus,
   },
   {
     to: "/users",
     label: "Usuarios",
-    icon: User,
+    icon: Users,
   },
 
   {
     to: "/financial",
     label: "Faturas",
-    icon: Coins,
-  },
-  {
-    to: "/partnerships",
-    label: "Parceiros",
-    icon: User,
+    icon: CreditCard,
   },
 ];
