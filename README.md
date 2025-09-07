@@ -1,38 +1,57 @@
-🚀 React + Vite
+🚀 Autoescola Desktop App (MVP)
 
-Este projeto foi criado com Vite
-e React
-para fornecer um ambiente rápido e moderno de desenvolvimento front-end.
+Este projeto é uma aplicação desktop React + Vite para gestão completa de uma autoescola, incluindo CRUD de alunos, instrutores, parceiros, faturamento e exames.
+Criado como MVP, com foco em escalabilidade e futuras versões.
+
+⚡ Tecnologias
+
+React.js – Biblioteca front-end moderna
+
+Vite – Build rápido e leve
+
+TypeScript – Tipagem forte e segurança
+
+Tailwind CSS + ShadCN/UI – UI rápida e reutilizável
 
 ▶️ Como Rodar o Projeto
 
-Clone o repositório:
+# Clone o repositório
 
 git clone https://github.com/seu-usuario/seu-repo.git
 cd seu-repo
 
-Instale as dependências:
+# Instale as dependências
 
 npm install
 
-Rode em ambiente de desenvolvimento:
+# Rode em ambiente de desenvolvimento
 
 npm run dev
 
-Build para produção:
+# Build para produção
 
 npm run build
 
-Pré-visualização do build:
+# Pré-visualização do build
 
 npm run preview
 
 ✅ Requisitos
 
-Node.js versão >=18
+Node.js >= 18
 
 npm ou yarn
 
-📄 Licença
+🛠 Estrutura Atual (MVP)
 
-Este projeto está sob a licença MIT.
+CRUD de Alunos
+
+CRUD de Instrutores
+
+CRUD de Parceiros
+
+Gestão de Faturamento
+
+Registro de Exames
+
+🚧 Funcionalidades futuras serão adicionadas em versões posteriores

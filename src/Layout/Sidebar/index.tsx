@@ -1,7 +1,8 @@
-import { Coins, Dock, Home, Info, Sparkle, User, X } from "lucide-react";
+import { X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import profile from "../../assets/profile.png";
+import { sidebarData } from "./data";
 
 type SidebarProps = {
   isCollapsed: boolean;
@@ -13,10 +14,11 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
 
   return (
     <aside
-      className={`fixed  top-0 left-0 h-screen bg-gray-900 text-white p-5 transition-all duration-400 z-50 overflow-hidden    ${
+      className={`fixed top-0 left-0 h-screen bg-gray-900 text-white p-5 transition-all duration-400 z-50 overflow-hidden ${
         isCollapsed ? "w-22" : "w-64"
       }`}
     >
+      {/* Logo e botão */}
       <div className="flex justify-between items-center h-8">
         <div
           className={`transition-opacity duration-400 ${
@@ -42,15 +44,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         </button>
       </div>
 
+      {/* Links do menu */}
       <nav className="flex flex-col gap-2 mt-5">
-        {[
-          { to: "/", label: "Home", icon: <Home size={24} /> },
-          { to: "/about", label: "About", icon: <Info size={24} /> },
-          { to: "/products", label: "Products", icon: <Dock /> },
-          { to: "/sales", label: "Sales", icon: <Sparkle /> },
-          { to: "/users", label: "Users", icon: <User /> },
-          { to: "/financial", label: "Financial", icon: <Coins /> },
-        ].map(({ to, label, icon }) => (
+        {sidebarData.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
@@ -60,7 +56,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
               }`
             }
           >
-            <div className="min-w-[24px] flex justify-center">{icon}</div>
+            <div className="min-w-[24px] flex justify-center">
+              <Icon size={24} />
+            </div>
             <span
               className={`ml-3 overflow-hidden transition-all ease-in-out duration-400 ${
                 isCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
