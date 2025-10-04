@@ -17,7 +17,7 @@ import { navigateWithParams } from "@/utils/navigateWithParams";
 
 const Students = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit } = useForm();
+  const { control, setValue, handleSubmit } = useForm();
   const [search, setSearch] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +43,7 @@ const Students = () => {
     return matchesSearch && matchesDate;
   });
 
-  const steps = getStudentSteps({ control });
+  const steps = getStudentSteps({ control, setValue });
 
   return (
     <div className="p-6 space-y-6">

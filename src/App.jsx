@@ -5,7 +5,7 @@ const App = () => {
   return (
     <>
       <AppRoutes />
-      <Toaster position="top-right" />
+      <Toaster position="top-center" />
     </>
   );
 };

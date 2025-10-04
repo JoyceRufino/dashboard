@@ -61,16 +61,16 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className={`${widthClass} max-h-[95vh] flex flex-col`}>
+      <DialogContent
+        className={`${widthClass} max-h-[95vh] flex flex-col h-[80vh]`}
+      >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
 
-          {/* Stepper */}
           <div className="flex items-center justify-center gap-2 p-2  ">
             {steps.map((step, index) => (
               <div key={index} className="flex items-center gap-2">
-                {/* Círculo do step */}
                 <div
                   className={`w-6 h-6 flex items-center justify-center rounded-full text-sm font-semibold
             ${
@@ -94,7 +94,6 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
                   {step.title}
                 </div>
 
-                {/* Linha entre os steps */}
                 {index < steps.length - 1 && (
                   <div
                     className={`flex-1 h-1 rounded-full
@@ -113,7 +112,6 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
         </div>
 
         <DialogFooter className="flex justify-between flex-col gap-2 pt-4 border-t">
-          {/* Navegação */}
           <div className="flex gap-2 p-3 rounded-md">
             {currentStep > 0 && (
               <Button variant="outline" onClick={handleBack}>
@@ -129,7 +127,6 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
             )}
           </div>
 
-          {/* Ações */}
           <div className="flex gap-2 justify-end mt-2">
             {onSaveDraft && (
               <Button variant="secondary" onClick={onSaveDraft}>

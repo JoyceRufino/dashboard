@@ -1,22 +1,31 @@
-import { Controller, UseFormReturn } from "react-hook-form";
+import { Controller, useForm, UseFormReturn } from "react-hook-form";
 import { FormInput } from "@/components/Form/FormInput";
 import { FormSelect } from "@/components/Form/FormSelect";
-import { formatCPF, formatPhone, formatRG } from "@/utils/formatters";
+import {
+  formatCEP,
+  formatCPF,
+  formatPhone,
+  formatRG,
+} from "@/utils/formatters";
 import { FormInputMoreContacts } from "@/components/Form/FormInputMoreContacts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { buscarEndereco } from "@/services/cep";
 
 interface StudentFormStepsProps {
   control: UseFormReturn["control"];
+  setValue: UseFormReturn["setValue"];
 }
-
 interface Step {
   title: string;
   content: any;
 }
 
-export function getStudentSteps({ control }: StudentFormStepsProps): Step[] {
+export function getStudentSteps({
+  control,
+  setValue,
+}: StudentFormStepsProps): Step[] {
   const [parcelasCount, setParcelasCount] = useState<number>(1);
 
   return [
@@ -57,14 +66,17 @@ export function getStudentSteps({ control }: StudentFormStepsProps): Step[] {
           </div>
 
           <div className="w-1/2">
-            <FormInputMoreContacts
-              name="contacts"
-              label="Contatos"
-              placeholder="Digite o telefone de contato"
-              control={control}
-              format={formatPhone}
-              maxLength={15}
-            />
+            <div className="">
+              <FormInputMoreContacts
+                name="contacts"
+                label="Contatos"
+                placeholder="Digite o telefone de contato"
+                control={control}
+                format={formatPhone}
+                maxLength={15}
+                showType={true}
+              />
+            </div>
           </div>
         </div>
       ),
@@ -80,7 +92,23 @@ export function getStudentSteps({ control }: StudentFormStepsProps): Step[] {
                 control={control}
                 placeholder="Digite o CEP"
                 label="CEP"
+                format={formatCEP}
                 maxLength={9}
+                onBlur={async (e) => {
+                  const cep = e.target.value;
+                  if (!cep) return;
+
+                  console.log("Buscando CEP:", cep);
+                  const endereco = await buscarEndereco(cep);
+                  console.log("Resultado CEP:", endereco);
+
+                  if (endereco) {
+                    setValue("logradouro", endereco.logradouro || "");
+                    setValue("bairro", endereco.bairro || "");
+                    setValue("cidade", endereco.localidade || "");
+                    setValue("estado", endereco.uf || "");
+                  }
+                }}
               />
             </div>
             <div className="flex-1">

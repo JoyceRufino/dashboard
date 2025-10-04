@@ -4,15 +4,28 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { CirclePlus, Trash2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface ContactItem {
+  value: string;
+  type?: "celular" | "telefone";
+}
 
 interface FormInputMoreContactsProps {
-  name: string; // ex: "contacts"
+  name: string;
   control: Control<any>;
   label?: string;
   placeholder?: string;
   maxLength?: number;
   rules?: any;
   format?: (value: string) => string;
+  showType?: boolean;
 }
 
 export const FormInputMoreContacts: React.FC<FormInputMoreContactsProps> = ({
@@ -23,6 +36,7 @@ export const FormInputMoreContacts: React.FC<FormInputMoreContactsProps> = ({
   maxLength = 255,
   rules,
   format,
+  showType = false,
 }) => {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -30,20 +44,37 @@ export const FormInputMoreContacts: React.FC<FormInputMoreContactsProps> = ({
   });
 
   if (fields.length === 0) {
-    append({ value: "" });
+    append({ value: "", type: "celular" });
   }
-
   return (
-    <div className="space-y-2 w-full">
+    <div className="space-y-2">
       {label && <Label className="font-semibold">{label}</Label>}
 
       {fields.map((field, index) => (
-        <div key={field.id} className="flex gap-2 items-center">
+        <div key={field.id} className="flex gap-2 w-full items-center">
+          {showType && (
+            <Controller
+              name={`${name}.${index}.type`}
+              control={control}
+              defaultValue={field.id || "celular"}
+              render={({ field: f }) => (
+                <Select {...f} onValueChange={f.onChange}>
+                  <SelectTrigger className="">
+                    <SelectValue placeholder="Tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="celular">Celular</SelectItem>
+                    <SelectItem value="telefone">Telefone</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          )}
           <Controller
             name={`${name}.${index}.value`}
             control={control}
             rules={rules}
-            defaultValue={field || ""}
+            defaultValue={field.id || ""}
             render={({ field: f, fieldState }) => (
               <div className="flex flex-col w-full">
                 <Input
@@ -65,11 +96,15 @@ export const FormInputMoreContacts: React.FC<FormInputMoreContactsProps> = ({
               </div>
             )}
           />
-          {index > 0 && (
-            <Button variant={"link"} onClick={() => remove(index)}>
-              <Trash2 className="text-danger" />
-            </Button>
-          )}
+
+          <div className="w-[150px]">
+            {" "}
+            {index > 0 && (
+              <Button variant={"link"} onClick={() => remove(index)}>
+                <Trash2 className="text-red-500" />
+              </Button>
+            )}
+          </div>
         </div>
       ))}
 
@@ -78,9 +113,9 @@ export const FormInputMoreContacts: React.FC<FormInputMoreContactsProps> = ({
           type="button"
           size="sm"
           variant={"link"}
-          onClick={() => append({ value: "" })}
+          onClick={() => append({ value: "", type: "celular" })}
         >
-          <CirclePlus />
+          <CirclePlus className="mr-1" />
           Adicionar mais contatos
         </Button>
       </div>

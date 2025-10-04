@@ -11,6 +11,7 @@ interface FormInputProps {
   maxLength?: number;
   rules?: any;
   format?: (value: string) => string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -21,6 +22,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   maxLength = 255,
   rules,
   format,
+  onBlur,
 }) => {
   const [valueLength, setValueLength] = useState(0);
 
@@ -44,9 +46,12 @@ export const FormInput: React.FC<FormInputProps> = ({
             value={field.value || ""}
             onChange={(e) => {
               let value = e.target.value;
-              if (format) value = format(value); // aplica formatação
+              if (format) value = format(value);
               field.onChange(value);
-              setValueLength(value.length);
+            }}
+            onBlur={(e) => {
+              field.onBlur();
+              if (onBlur) onBlur(e);
             }}
           />
           <div className="text-right text-sm text-gray-500 mt-1">
