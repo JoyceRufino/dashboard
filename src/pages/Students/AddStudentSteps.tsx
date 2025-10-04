@@ -12,6 +12,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { buscarEndereco } from "@/services/cep";
+import { FormDateInput } from "@/components/Form/FormDate";
+import { Upload } from "@/components/Upload";
 
 interface StudentFormStepsProps {
   control: UseFormReturn["control"];
@@ -32,7 +34,7 @@ export function getStudentSteps({
     {
       title: "Informações Gerais",
       content: (
-        <div className="space-y-3">
+        <div className="space-y-2">
           <FormInput
             name="name"
             control={control}
@@ -84,7 +86,7 @@ export function getStudentSteps({
     {
       title: "Endereço completo",
       content: (
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex gap-4">
             <div className="flex-1">
               <FormInput
@@ -93,7 +95,7 @@ export function getStudentSteps({
                 placeholder="Digite o CEP"
                 label="CEP"
                 format={formatCEP}
-                maxLength={9}
+                showLength={false}
                 onBlur={async (e) => {
                   const cep = e.target.value;
                   if (!cep) return;
@@ -117,7 +119,7 @@ export function getStudentSteps({
                 control={control}
                 placeholder="Digite o número"
                 label="Número"
-                maxLength={10}
+                showLength={false}
               />
             </div>
           </div>
@@ -127,6 +129,7 @@ export function getStudentSteps({
             control={control}
             placeholder="Digite o logradouro (Rua, Avenida, etc.)"
             label="Logradouro"
+            showLength={false}
           />
 
           <FormInput
@@ -134,6 +137,7 @@ export function getStudentSteps({
             control={control}
             placeholder="Ex: Apto 101, Bloco B"
             label="Complemento"
+            showLength={false}
           />
 
           <FormInput
@@ -141,6 +145,7 @@ export function getStudentSteps({
             control={control}
             placeholder="Digite o bairro"
             label="Bairro"
+            showLength={false}
           />
 
           <div className="flex gap-4">
@@ -150,6 +155,7 @@ export function getStudentSteps({
                 control={control}
                 placeholder="Digite a cidade"
                 label="Cidade"
+                showLength={false}
               />
             </div>
             <div className="flex-1">
@@ -175,7 +181,17 @@ export function getStudentSteps({
     {
       title: "Forma de Pagamento",
       content: (
-        <div className="space-y-3 mb-4">
+        <div className="space-y-4 mb-4">
+          <div className="w-1/2">
+            {" "}
+            <FormInput
+              name="price_base"
+              control={control}
+              placeholder="Valor total"
+              label="Valor total base"
+              showLength={false}
+            />
+          </div>
           <FormSelect
             name="formaPagamento"
             control={control}
@@ -196,40 +212,53 @@ export function getStudentSteps({
 
               if (value === "cartao") {
                 return (
-                  <div className="space-y-2 mt-4">
-                    <Controller
-                      name="parcelas"
-                      control={control}
-                      render={({ field }) => (
-                        <FormSelect
-                          {...field}
-                          control={control}
-                          label="Número de Parcelas"
-                          placeholder="Selecione"
-                          options={[...Array(12)].map((_, i) => ({
-                            label: `${i + 1}x no cartão`,
-                            value: String(i + 1),
-                          }))}
-                          onValueChange={(val: string) => {
-                            field.onChange(val);
-                            setParcelasCount(Number(val));
-                          }}
-                        />
-                      )}
-                    />
+                  <div className="space-y-4 mt-4">
+                    <div className="flex items-center gap-4">
+                      {" "}
+                      <Controller
+                        name="parcelas"
+                        control={control}
+                        render={({ field }) => (
+                          <FormSelect
+                            {...field}
+                            control={control}
+                            label="Número de Parcelas"
+                            placeholder="Selecione"
+                            options={[...Array(12)].map((_, i) => ({
+                              label: `${i + 1}x no cartão`,
+                              value: String(i + 1),
+                            }))}
+                            onValueChange={(val: string) => {
+                              field.onChange(val);
+                              setParcelasCount(Number(val));
+                            }}
+                          />
+                        )}
+                      />
+                      <FormDateInput
+                        name="data_start_payment"
+                        control={control}
+                        placeholder="Valor da parcela"
+                        label="Data de inicio da cobrança"
+                      />
+                    </div>
 
                     {[...Array(parcelasCount)].map((_, index) => (
-                      <div key={index} className="flex gap-4">
+                      <div
+                        key={index}
+                        className="flex gap-2 p-3 bg-gray-100 rounded"
+                      >
                         <FormInput
                           name={`parcelasValores[${index}].valor`}
                           control={control}
                           placeholder="Valor da parcela"
                           label={`Parcela ${index + 1}`}
+                          showLength={false}
                         />
-                        <FormInput
+
+                        <FormDateInput
                           name={`parcelasValores[${index}].validade`}
                           control={control}
-                          placeholder="Validade (MM/AA)"
                           label="Validade"
                         />
                       </div>
@@ -240,7 +269,7 @@ export function getStudentSteps({
 
               if (value === "avista") {
                 return (
-                  <div className="space-y-4 mt-4">
+                  <div className="pt-3 mt-5">
                     <div className="flex gap-4">
                       <FormInput
                         name="valorTotal"
@@ -281,31 +310,36 @@ export function getStudentSteps({
 
               if (value === "boleto") {
                 return (
-                  <div className="space-y-4 mt-4">
-                    <FormInput
-                      name="parcelasBoleto"
-                      control={control}
-                      placeholder="Número de parcelas"
-                      label="Parcelas"
-                    />
-                    <FormInput
-                      name="valorTotalBoleto"
-                      control={control}
-                      placeholder="Valor total do boleto"
-                      label="Valor Total"
-                    />
-                    <FormInput
-                      name="valorParcelaBoleto"
-                      control={control}
-                      placeholder="Valor por parcela"
-                      label="Valor por Parcela"
-                    />
-                    <FormInput
-                      name="vencimentoBoleto"
-                      control={control}
-                      placeholder="Data de vencimento"
-                      label="Vencimento"
-                    />
+                  <div className=" mt-4">
+                    <div className="flex gap-3">
+                      <FormSelect
+                        name="parcelasBoleto"
+                        control={control}
+                        placeholder="Número de parcelas"
+                        label="Parcelas"
+                        options={[
+                          { label: "1 x no boleto", value: "1" },
+                          { label: "2 x no boleto", value: "2" },
+                          { label: "3 x no boleto", value: "3" },
+                          { label: "4 x no boleto", value: "4" },
+                          { label: "5 x no boleto", value: "5" },
+                        ]}
+                      />
+                      <FormDateInput
+                        name="vencimentoBoleto"
+                        control={control}
+                        placeholder="Data de vencimento"
+                        label="Vencimento"
+                      />
+                    </div>
+                    <div className="w-1/2 mt-5">
+                      <FormInput
+                        name="valorParcelaBoleto"
+                        control={control}
+                        placeholder="Valor por parcela"
+                        label="Valor por Parcela"
+                      />
+                    </div>
                   </div>
                 );
               }
@@ -323,19 +357,31 @@ export function getStudentSteps({
           <Card className="flex-1 flex flex-col justify-between h-full">
             <CardHeader>CPF</CardHeader>
             <CardContent className="flex justify-center items-center">
-              <Button>Upload CPF</Button>
+              <Upload
+                label="Upload CPF"
+                onFileSelect={(file) => console.log("CPF enviado:", file)}
+                accept=".pdf,.jpg,.png"
+              />
             </CardContent>
           </Card>
           <Card className="flex-1 flex flex-col justify-between h-full">
             <CardHeader>RG</CardHeader>
             <CardContent className="flex justify-center items-center">
-              <Button>Upload RG</Button>
+              <Upload
+                label="Upload RG"
+                onFileSelect={(file) => console.log("CPF enviado:", file)}
+                accept=".pdf,.jpg,.png"
+              />
             </CardContent>
           </Card>
           <Card className="flex-1 flex flex-col justify-between h-full">
             <CardHeader>Comprovante de Residência</CardHeader>
             <CardContent className="flex justify-center items-center">
-              <Button>Upload Residência</Button>
+              <Upload
+                label="Upload Comprovante de Residência"
+                onFileSelect={(file) => console.log("CPF enviado:", file)}
+                accept=".pdf,.jpg,.png"
+              />
             </CardContent>
           </Card>
         </div>

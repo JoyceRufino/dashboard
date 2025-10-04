@@ -136,7 +136,7 @@ const Students = () => {
           console.log("Rascunho salvo:", data);
           setOpen(false);
         })}
-        size={"3xl"}
+        size={"2xl"}
       />
 
       <Modal

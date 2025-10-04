@@ -1,33 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Controller, Control } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface FormInputProps {
+interface FormDateInputProps {
   name: string;
   control: Control<any>;
-  placeholder?: string;
   label?: string;
-  maxLength?: number;
+  placeholder?: string;
   rules?: any;
-  format?: (value: string) => string;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  showLength?: boolean;
 }
 
-export const FormInput: React.FC<FormInputProps> = ({
+export const FormDateInput: React.FC<FormDateInputProps> = ({
   name,
   control,
-  placeholder,
   label,
-  maxLength = 255,
+  placeholder,
   rules,
-  format,
   onBlur,
-  showLength = true,
 }) => {
-  const [valueLength, setValueLength] = useState(0);
-
   return (
     <Controller
       name={name}
@@ -42,26 +34,15 @@ export const FormInput: React.FC<FormInputProps> = ({
           )}
           <Input
             id={name}
+            type="date"
             placeholder={placeholder}
-            maxLength={maxLength}
             {...field}
-            value={field.value || ""}
-            onChange={(e) => {
-              let value = e.target.value;
-              if (format) value = format(value);
-              field.onChange(value);
-            }}
             onBlur={(e) => {
               field.onBlur();
               if (onBlur) onBlur(e);
             }}
-            className="s"
+            className="bg-white"
           />
-          {showLength && (
-            <div className="text-right text-sm text-gray-500 mt-1">
-              {valueLength}/{maxLength}
-            </div>
-          )}
           {fieldState.error && (
             <span className="text-red-500 text-sm mt-1">
               {fieldState.error.message}

@@ -53,7 +53,7 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
     md: "w-full max-w-md",
     lg: "w-full max-w-lg",
     xl: "w-full max-w-xl",
-    "2xl": "w-full max-w-2xl",
+    "2xl": "w-full max-w-[70vw]",
     "3xl": "w-full max-w-[90vw]",
   };
 
@@ -112,7 +112,7 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
         </div>
 
         <DialogFooter className="flex justify-between flex-col gap-2 pt-4 border-t">
-          <div className="flex gap-2 p-3 rounded-md">
+          <div className="flex gap-2 rounded-md">
             {currentStep > 0 && (
               <Button variant="outline" onClick={handleBack}>
                 <ChevronLeft />
@@ -127,13 +127,18 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
             )}
           </div>
 
-          <div className="flex gap-2 justify-end mt-2">
+          <div className="flex gap-2 justify-end">
+            {isLastStep && (
+              <Button variant={"formSuccess"} onClick={onSubmit}>
+                Finalizar Cadastro
+              </Button>
+            )}
             {onSaveDraft && (
               <Button variant="secondary" onClick={onSaveDraft}>
                 Salvar Rascunho
               </Button>
             )}
-            {isLastStep && <Button onClick={onSubmit}>Finalizar</Button>}
+
             <Button variant="outline" onClick={onClose}>
               Fechar
             </Button>
