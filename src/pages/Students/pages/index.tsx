@@ -5,7 +5,6 @@ import { TableUI } from "@/components/TableUI";
 import { SearchInput } from "@/components/SearchInput";
 import { useForm } from "react-hook-form";
 import { ModalSteps } from "@/components/ModalSteps";
-import { getStudentSteps } from "../AddStudentSteps";
 import { ChevronLeft, CirclePlus, Delete, Edit, Trash2 } from "lucide-react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { initialStudents } from "../mockdata";
@@ -14,6 +13,7 @@ import { Modal } from "@/components/Modal";
 import { useNavigate } from "react-router-dom";
 import { paths } from "@/routes";
 import { navigateWithParams } from "@/utils/navigateWithParams";
+import { getStudentSteps } from "./components/StepsStudents";
 
 const Students = () => {
   const navigate = useNavigate();
