@@ -1,3 +1,4 @@
+// TableUI.tsx
 import React from "react";
 import {
   Table,
@@ -13,22 +14,22 @@ type TableUIProps<T> = {
   headers: string[];
   data: T[];
   total?: number;
-  renderCell?: (key: string, value: any, row: T) => React.ReactNode;
   currentPage?: number;
   itemsPerPage?: number;
   limit?: number;
   onPageChange?: (page: number) => void;
+  renderRow: (row: T, index: number) => React.ReactNode; // << diferença principal
 };
 
 export function TableUI<T extends Record<string, any>>({
   headers,
   data,
   total,
-  renderCell,
   currentPage = 1,
   itemsPerPage,
   limit,
   onPageChange,
+  renderRow,
 }: TableUIProps<T>) {
   const totalRecords = total ?? data.length;
   const perPage = limit ?? itemsPerPage ?? data.length;
@@ -49,15 +50,7 @@ export function TableUI<T extends Record<string, any>>({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedData.map((row, rowIndex) => (
-            <TableRow key={rowIndex}>
-              {headers.map((key, colIndex) => (
-                <TableCell key={colIndex}>
-                  {renderCell ? renderCell(key, row[key], row) : row[key]}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
+          {paginatedData.map((row, rowIndex) => renderRow(row, rowIndex))}
         </TableBody>
       </Table>
 

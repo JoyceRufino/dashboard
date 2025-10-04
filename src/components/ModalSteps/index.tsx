@@ -107,7 +107,7 @@ export const ModalSteps: React.FC<ModalStepsProps> = ({
           </div>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto py-4 p-2">
+        <div className="flex-1 overflow-y-auto py-7 px-7">
           <h3 className="font-semibold mb-5">{steps[currentStep].title}</h3>
           {steps[currentStep].content}
         </div>

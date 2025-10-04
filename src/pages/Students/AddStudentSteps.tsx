@@ -17,7 +17,7 @@ interface Step {
 }
 
 export function getStudentSteps({ control }: StudentFormStepsProps): Step[] {
-  const [parcelasCount, setParcelasCount] = useState<number>(1); // ✅ topo do componente
+  const [parcelasCount, setParcelasCount] = useState<number>(1);
 
   return [
     {
@@ -25,7 +25,7 @@ export function getStudentSteps({ control }: StudentFormStepsProps): Step[] {
       content: (
         <div className="space-y-3">
           <FormInput
-            name="nomeCompleto"
+            name="name"
             control={control}
             placeholder="Digite o nome completo"
             label="Nome Completo"

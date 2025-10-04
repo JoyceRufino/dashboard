@@ -29,7 +29,6 @@ export const FormInputMoreContacts: React.FC<FormInputMoreContactsProps> = ({
     name,
   });
 
-  // Garante que sempre tenha pelo menos um contato
   if (fields.length === 0) {
     append({ value: "" });
   }
