@@ -30,8 +30,6 @@ export interface Student {
   statusRegistration: "Ativo" | "Inativo";
   statusFinancial: "Em dia" | "Pendência" | string;
   date: string;
-
-  // Campos opcionais
   rg?: string;
   contatos?: Contato[];
   endereco?: Endereco;

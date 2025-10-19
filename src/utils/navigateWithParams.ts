@@ -1,22 +1,16 @@
-import { NavigateFunction } from "react-router-dom";
+export function navigateWithParams(
+  navigate: any,
+  path: string,
+  params: Record<string, string>,
+  state?: any
+) {
+  let url = path;
 
-/**
- * Navega para uma rota substituindo parâmetros dinâmicos
- * @param navigate - função do useNavigate
- * @param pathTemplate - string do path, ex: "/students/:uuid_student"
- * @param params - objeto com os parâmetros a substituir
- */
-export const navigateWithParams = (
-  navigate: NavigateFunction,
-  pathTemplate: string,
-  params: Record<string, string | number>
-) => {
-  let path = pathTemplate;
+  for (const key in params) {
+    if (Object.prototype.hasOwnProperty.call(params, key)) {
+      url = url.replace(`:${key}`, params[key]);
+    }
+  }
 
-  // Substitui cada parâmetro no template
-  Object.keys(params).forEach((key) => {
-    path = path.replace(`:${key}`, String(params[key]));
-  });
-
-  navigate(path);
-};
+  navigate(url, { state });
+}

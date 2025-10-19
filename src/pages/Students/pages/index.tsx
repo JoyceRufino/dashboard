@@ -5,7 +5,7 @@ import { TableUI } from "@/components/TableUI";
 import { SearchInput } from "@/components/SearchInput";
 import { useForm } from "react-hook-form";
 import { ModalSteps } from "@/components/ModalSteps";
-import { ChevronLeft, CirclePlus, Delete, Edit, Trash2 } from "lucide-react";
+import { ChevronLeft, CirclePlus, Edit, Trash2 } from "lucide-react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { initialStudents } from "../mockdata";
 import { Student } from "@/types/student";
@@ -13,7 +13,7 @@ import { Modal } from "@/components/Modal";
 import { useNavigate } from "react-router-dom";
 import { paths } from "@/routes";
 import { navigateWithParams } from "@/utils/navigateWithParams";
-import { getStudentSteps } from "./components/StepsStudents";
+import { getStudentSteps } from "../components/StepsStudents";
 
 const Students = () => {
   const navigate = useNavigate();
@@ -71,9 +71,12 @@ const Students = () => {
             <TableCell className=" hover:text-secondary hover:underline cursor-pointer">
               <a
                 onClick={() =>
-                  navigateWithParams(navigate, paths.studentDetail, {
-                    uuid_student: student.uuid_student,
-                  })
+                  navigateWithParams(
+                    navigate,
+                    paths.studentDetail,
+                    { uuid_student: student.uuid_student },
+                    { student }
+                  )
                 }
               >
                 {student.name}
